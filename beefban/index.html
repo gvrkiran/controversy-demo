@@ -48,6 +48,15 @@
 		document.getElementById("hide_link1" + i).innerHTML = "";
 		document.getElementById("show_link1" + i).innerHTML = "Show";
 	}
+
+	function highlightNodes(nodes) {
+		var nodes_split = nodes.split(";");
+		var arrayLength = nodes_split.length;
+		for (var i = 0; i < arrayLength; i++) {
+			node = nodes_split[i];
+			sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex[node]);
+		}
+	}
    </script>
 	  
 	  

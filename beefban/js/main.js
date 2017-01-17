@@ -305,7 +305,7 @@ function configSigmaElements(config) {
 		for (b in sigInst.clusters) {
 //			a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> Kiran ' + (x++) + ' (' + sigInst.clusters[b].length + ' members)</a></div>');
 			a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> ' + b + ' (' + sigInst.clusters[b].length + ' members)</a></div>');
-			console.log(b);
+//			console.log(b);
 		}
 
     //a.sort();
@@ -615,7 +615,7 @@ function nodeActive(a) {
 					tmp_str += "<script type='text/javascript'>$('#manual-example" + i.toString() + " a[rel=tipsy]').tipsy({trigger: 'manual', gravity: 's', html: true});</script><br/>";
 				}
 			}
-			console.log(tmp_str);
+	//		console.log(tmp_str);
 			$GP.info_retweets.html('<strong>' + attr + ':</strong> ' + tmp_str + '<br/>');
 		}
 		if(attr=="Recommended Links") {
