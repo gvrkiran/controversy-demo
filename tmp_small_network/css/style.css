@@ -1,5 +1,5 @@
 * {
-/*padding: 0px;*/
+padding: 0px;
 margin: 0px;
 }
 
@@ -60,7 +60,7 @@ canvas#sigma_bg_1 {
     bottom:0;
     top:0;
     right:0;
-	width: 480px;
+	width: 240px;
 	background-color: #fff;
 	margin: 0;
 	word-wrap: break-word;
@@ -231,7 +231,7 @@ display: none;
 }
 
 #mainpanel {
-margin-top: 350px;
+margin-top: 450px;
 margin-left: 25px;
 background:#fff;
 background-color:rgba(255,255,255,0.8);
@@ -384,7 +384,7 @@ padding-top: 1em;
 }
 
 #mainpanel dl {
-/*	padding-bottom:10px;*/
+	padding-bottom:10px;
 }
 
 #mainpanel h2 {
@@ -575,42 +575,3 @@ cursor: pointer;
 display: none;
 }
 
-section#urls {
-    width: 100%;
-    height: 150px;
-    margin: auto;
-/*    padding: 10px;*/
-}
-div#one {
-    width: 49%;
-    height: 100px;
-    float: left;
-    background: AliceBlue;
-    text-align: center;
-}
-div#two {
-    margin-left: 50%;
-    height: 100px;
-    background: Azure;
-    text-align: center;
-}
-
-section#urls1 {
-    width: 100%;
-    height: 200px;
-    margin: auto;
-/*    padding: 10px;*/
-}
-div#one1 {
-    width: 49%;
-    height: 180px;
-    float: left;
-    background: AliceBlue;
-    text-align: center;
-}
-div#two2 {
-    margin-left: 50%;
-    height: 180px;
-    background: Azure;
-    text-align: center;
-}

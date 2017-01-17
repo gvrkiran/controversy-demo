@@ -3,26 +3,6 @@ var sigInst, canvas, $GP
 //Load configuration file
 var config={};
 
-// Function to randomly shuffle an array
-function shuffle(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    array[currentIndex] = array[randomIndex];
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-}
-
 //For debug allow a config=file.json parameter to specify the config
 function GetQueryStringParams(sParam,defaultVal) {
     var sPageURL = ""+window.location;//.search.substring(1);//This might be causing error in Safari?
@@ -205,10 +185,6 @@ function setupGUI(config) {
     $GP.info_name = $GP.info.find(".name");
     $GP.info_link = $GP.info.find(".link");
     $GP.info_data = $GP.info.find(".data");
-    $GP.info_retweets = $GP.info.find(".retweets");
-    $GP.info_recommended = $GP.info.find(".recommended1");
-    $GP.info_recommended2 = $GP.info.find(".recommended2");
-    $GP.info_domain = $GP.info.find(".domain");
     $GP.info_close = $GP.info.find(".returntext");
     $GP.info_close2 = $GP.info.find(".close");
     $GP.info_p = $GP.info.find(".p");
@@ -306,9 +282,8 @@ function configSigmaElements(config) {
 		for (b in sigInst.clusters) {
 //			a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> Kiran ' + (x++) + ' (' + sigInst.clusters[b].length + ' members)</a></div>');
 			a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> ' + b + ' (' + sigInst.clusters[b].length + ' members)</a></div>');
-//			console.log(b);
+			console.log(b);
 		}
-
     //a.sort();
     $GP.cluster.content(a.join(""));
     b = {
@@ -405,7 +380,8 @@ function Search(a) {
             sigInst.iterNodes(function (a) {
                 g.test(a.label.toLowerCase()) && c.push({
                     id: a.id,
-                    name: a.label
+//                    name: a.label
+                    name: a.id
                 })
             });
             c.length ? (b = !0, nodeActive(c[0].id)) : b = showCluster(a);
@@ -480,7 +456,8 @@ function nodeActive(a) {
         b.hidden = !0;
         
         n={
-            name: b.label,
+//            name: b.label,
+            name: b.id,
             colour: b.color
         };
         
@@ -521,7 +498,7 @@ function nodeActive(a) {
         a != g && e.push({
             id: g,
 //            name: d.label,
-	    name: d.id,
+            name: d.id,
             group: (c[g].name)? c[g].name:"",
             colour: c[g].colour
         })
@@ -595,91 +572,26 @@ function nodeActive(a) {
         for (var attr in f.attributes) {
             var d = f.attributes[attr],
                 h = "";
-	    	/*
-		if (attr!=image_attribute) {
-                	h = '<span><strong>' + attr + ':</strong> ' + d + '</span><br/>'
-		}
-		*/
-		if(attr=="Retweets") {
-//			d = d.replace("<br>","");
-//			d = d.replace(/a href=/g, "a rel=\'tipsy\' title=\'<h2>Kiran is great</h2><br><hr><p>Sample text</p>\' href=");
-			var d_split = d.split("<br/>");
-			d_shuffled = shuffle(d_split);
-			var arrayLength = d_shuffled.length;
-			if(arrayLength>4)
-				arrayLength=4;
-			var tmp_str = "<br>";
-			for (var i = 0; i < arrayLength; i++) { // take the top 3 random retweets
-				if(d_shuffled[i]!="") {
-					tmp_str += "<p id='manual-example" + i.toString() + "'>" + d_shuffled[i] + "&nbsp;";
-					tmp_str += "  <a id='show_link" + i.toString() + "' href='#' onclick='$(\"#manual-example" + i.toString() + " a[rel=tipsy]\").tipsy(\"show\"); hideDivShow1(" + i.toString() + "); return false;'>Show</a><a id='hide_link" + i.toString() + "' href='#' onclick='$(\"#manual-example" + i.toString() + " a[rel=tipsy]\").tipsy(\"hide\"); hideDivHide1(" + i.toString() + "); return false;'></a>";
-					tmp_str += "<script type='text/javascript'>$('#manual-example" + i.toString() + " a[rel=tipsy]').tipsy({trigger: 'manual', gravity: 's', html: true});</script><br/>";
-				}
+			if (attr!=image_attribute) {
+                h = '<span><strong>' + attr + ':</strong> ' + d + '</span><br/>'
 			}
-	//		console.log(tmp_str);
-			$GP.info_retweets.html('<strong>' + attr + ':</strong> ' + tmp_str + '<br/>');
-		}
-		if(attr=="Recommended Links") {
-//			console.log("ss",d);
-			d = d.replace("<br>","");
-			var d_split = d.split("<br/>");
-			d_shuffled = shuffle(d_split);
-			var arrayLength = d_shuffled.length;
-			if(arrayLength>3)
-				arrayLength=3;
-			var tmp_str = "<br>";
-			for (var i = 0; i < arrayLength; i++) { // take the top 3 random links
-				if(d_shuffled[i]!="") {
-					tmp_str += "<p id='manual-example1" + i.toString() + "'>" + d_shuffled[i] + "&nbsp;";
-					tmp_str += "  <a id='show_link1" + i.toString() + "' href='#' onclick='$(\"#manual-example1" + i.toString() + " a[rel=tipsy]\").tipsy(\"show\"); hideDivShow2(" + i.toString() + "); return false;'>Show</a><a id='hide_link1" + i.toString() + "' href='#' onclick='$(\"#manual-example1" + i.toString() + " a[rel=tipsy]\").tipsy(\"hide\"); hideDivHide2(" + i.toString() + "); return false;'></a>";
-					tmp_str += "<script type='text/javascript'>$('#manual-example1" + i.toString() + " a[rel=tipsy]').tipsy({trigger: 'manual', gravity: 's', html: true});</script><br/>";
-				}
-			}
-
-//			$GP.info_recommended.html('<strong>' + attr + ':</strong> ' + tmp_str + '</ul><br/>');
-			$GP.info_recommended.html('<strong>Contrarian Articles:</strong> ' + tmp_str + '</ul><br/>');
-		}
-		if(attr=="Recommended Links") {
-//			console.log("ss",d);
-			d = d.replace("<br>","");
-			var d_split = d.split("<br/>");
-			d_shuffled = shuffle(d_split);
-			var arrayLength = d_shuffled.length;
-			if(arrayLength>3)
-				arrayLength=3;
-			var tmp_str = "<br>";
-			for (var i = 0; i < arrayLength; i++) { // take the top 3 random links
-				if(d_shuffled[i]!="") {
-					tmp_str += "<p id='manual-example1" + i.toString() + "'>" + d_shuffled[i] + "&nbsp;";
-					tmp_str += "  <a id='show_link1" + i.toString() + "' href='#' onclick='$(\"#manual-example1" + i.toString() + " a[rel=tipsy]\").tipsy(\"show\"); hideDivShow2(" + i.toString() + "); return false;'>Show</a><a id='hide_link1" + i.toString() + "' href='#' onclick='$(\"#manual-example1" + i.toString() + " a[rel=tipsy]\").tipsy(\"hide\"); hideDivHide2(" + i.toString() + "); return false;'></a>";
-					tmp_str += "<script type='text/javascript'>$('#manual-example1" + i.toString() + " a[rel=tipsy]').tipsy({trigger: 'manual', gravity: 's', html: true});</script><br/>";
-				}
-			}
-
-			$GP.info_recommended2.html('<strong>Random articles:</strong> ' + tmp_str + '</ul><br/>');
-		}
-		if(attr=="Domain") {
-			$GP.info_domain.html('<strong>' + attr + ':</strong> ' + d + '<br/>');
-		}
-
             //temp_array.push(f.attributes[g].attr);
             e.push(h)
         }
 
-/* fck the image attribute, dont care
-
+	/*
         if (image_attribute) {
         	//image_index = jQuery.inArray(image_attribute, temp_array);
-        	// $GP.info_name.html("<div><img src=" + f.attributes[image_attribute] + " style=\"vertical-align:middle\" /> <span onmouseover=\"sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex['" + b.id + '\'])" onmouseout="sigInst.refresh()">' + b.label + "</span></div>");
-        	$GP.info_name.html("<div><img src=" + f.attributes[image_attribute] + " style=\"vertical-align:middle\" /> <span onmouseover=\"sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex['" + b.id + '\'])" onmouseout="sigInst.refresh()"><a id="twitter_link" original-title="this <i>contains</i> <b>formatted</b> text" href="https://www.twitter.com/' + b.label + "\" target=_blank>" + b.label + "</a></span></div>");
+        	$GP.info_name.html("<div><img src=" + f.attributes[image_attribute] + " style=\"vertical-align:middle\" /> <span onmouseover=\"sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex['" + b.id + '\'])" onmouseout="sigInst.refresh()">' + b.id + "</span></div>");
         } else {
-        	$GP.info_name.html("<div><span onmouseover=\"sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex['" + b.id + '\'])" onmouseout="sigInst.refresh()"><a id="twitter_link" original-title="this <i>contains</i> <b>formatted</b> text" href="https://www.twitter.com/' + b.label + "\" target=_blank>" + b.label + "</a></span></div>");
+        	$GP.info_name.html("<div><span onmouseover=\"sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex['" + b.id + '\'])" onmouseout="sigInst.refresh()">' + b.id + "</span></div>");
         }
-*/
-        $GP.info_name.html("<div><span onmouseover=\"sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex['" + b.id + '\'])" onmouseout="sigInst.refresh()"><a id="twitter_link" original-title="this <i>contains</i> <b>formatted</b> text" href="https://www.twitter.com/' + b.id + "\" target=_blank>" + b.id + "</a></span></div>");
-
+	*/
+        $GP.info_name.html("<div><span onmouseover=\"sigInst._core.plotter.drawHoverNode('kiran',sigInst._core.graph.nodesIndex['" + b.id + '\'])" onmouseout="sigInst.refresh()">' + b.id + "</span></div>");
+	console.log("<div><span onmouseover=\"sigInst._core.plotter.drawHoverNode('kiran',sigInst._core.graph.nodesIndex['" + b.id + '\'])" onmouseout="sigInst.refresh()">' + b.id + "</span></div>");
         // Image field for attribute pane
         $GP.info_data.html(e.join("<br/>"))
+	console.log(e.join("<br/>"));
     }
     $GP.info_data.show();
     $GP.info_p.html("Connections:");
@@ -687,6 +599,7 @@ function nodeActive(a) {
 	$GP.info_donnees.hide();
 	$GP.info_donnees.show();
     sigInst.active = a;
+//    window.location.hash = b.label;
     window.location.hash = b.id;
 }
 
@@ -706,12 +619,11 @@ function showCluster(a) {
         });
         for (var f = [], e = [], c = 0, g = b.length; c < g; c++) {
             var d = sigInst._core.graph.nodesIndex[b[c]];
-            !0 == d.hidden && (e.push(b[c]), d.hidden = !1, d.attr.lineWidth = !1, d.attr.color = d.color, f.push('<li class="membership"><a href="#'+d.label+'" onmouseover="sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex[\'' + d.id + "'])\" onclick=\"nodeActive('" + d.id + '\')" onmouseout="sigInst.refresh()">' + d.id + "</a></li>"))
+            !0 == d.hidden && (e.push(b[c]), d.hidden = !1, d.attr.lineWidth = !1, d.attr.color = d.color, f.push('<li class="membership"><a href="#'+d.id+'" onmouseover="sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex[\'' + d.id + "'])\" onclick=\"nodeActive('" + d.id + '\')" onmouseout="sigInst.refresh()">' + d.id + "</a></li>"))
         }
         sigInst.clusters[a] = e;
         sigInst.draw(2, 2, 2, 2);
-//       $GP.info_name.html("<b>" + a + "</b>");
-        $GP.info_name.html("<b><a href='https://www.twitter.com/" + a + "' target=_blank>" + a + "</a></b>");
+        $GP.info_name.html("<b>" + a + "</b>");
         $GP.info_data.hide();
         $GP.info_p.html("Group Members:");
         $GP.info_link.find("ul").html(f.join(""));

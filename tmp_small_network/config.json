@@ -1,0 +1,53 @@
+{
+  "type": "network",
+  "version": "1.0",
+  "data": "new_data.json",
+  "logo": {
+    "file": "",
+    "link": "",
+    "text": "Kiran"
+  },
+  "text": {
+    "more": "\u003chtml\u003e\n\u003cbody\u003e\n\u003ch3\u003eus election night data\u003c/h3\u003e\n\n\u003cul\u003e\n\u003cli\u003eKiran is great1\u003c/li\u003e\n\u003cli\u003eKiran is great2\u003c/li\u003e\n\u003cli\u003eKiran is great3\u003c/li\u003e\n\u003cli\u003eKiran is great4 Kiran is great4 Kiran is great4 Kiran is great4 Kiran is great4 Kiran is great4 Kiran is great4 Kiran is great4 Kiran is great4 Kiran is great4 \u003c/li\u003e\n\u003c/body\u003e\n\u003c/html\u003e",
+    "intro": "visualization of us election night retweet data",
+    "title": "US Elections"
+  },
+  "legend": {
+    "edgeLabel": "retweet",
+    "colorLabel": "Republican-red,Democrat-blue",
+    "nodeLabel": "user"
+  },
+  "features": {
+    "search": false,
+    "groupSelectorAttribute": "Label",
+    "hoverBehavior": "dim"
+  },
+  "informationPanel": {
+    "groupByEdgeDirection": false,
+    "imageAttribute": false
+  },
+  "sigma": {
+    "drawingProperties": {
+      "defaultEdgeType": "curve",
+      "defaultHoverLabelBGColor": "#002147",
+      "defaultLabelBGColor": "#ddd",
+      "activeFontStyle": "bold",
+      "defaultLabelColor": "#000",
+      "labelThreshold": 10,
+      "defaultLabelHoverColor": "#fff",
+      "fontStyle": "bold",
+      "hoverFontStyle": "bold",
+      "defaultLabelSize": 14
+    },
+    "graphProperties": {
+      "maxEdgeSize": 0.5,
+      "minEdgeSize": 0.2,
+      "minNodeSize": 1,
+      "maxNodeSize": 7
+    },
+    "mouseProperties": {
+      "maxRatio": 20,
+      "minRatio": 0.75
+    }
+  }
+}
