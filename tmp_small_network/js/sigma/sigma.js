@@ -651,7 +651,8 @@ sigma.classes.EventDispatcher = function () {
             b.shadowOffsetY = 0;
             b.shadowBlur = 0;
             b.fillStyle = "node" == j.p.labelHoverColor ? a.color || j.p.defaultNodeColor : j.p.defaultLabelHoverColor;
-            b.fillText(a.id, h + 4, g + m - 3);
+	    var polarity = a.attr.polarity.toString();
+            b.fillText(a.id + ":" + polarity, h + 4, g + m - 3);
             return j
         }
         function m(a) {
@@ -669,8 +670,8 @@ sigma.classes.EventDispatcher = function () {
             bg2: g
         };
         this.p = {
-            labelColor: "default",
-            defaultLabelColor: "#fff",
+            labelColor: "node",
+            defaultLabelColor: "#0f0",
             labelHoverBGColor: "default",
             defaultHoverLabelBGColor: "#fff",
             labelHoverShadow: !0,

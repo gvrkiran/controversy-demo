@@ -206,7 +206,8 @@ function setupGUI(config) {
     $GP.info_link = $GP.info.find(".link");
     $GP.info_data = $GP.info.find(".data");
     $GP.info_retweets = $GP.info.find(".retweets");
-    $GP.info_recommended = $GP.info.find(".recommended");
+    $GP.info_recommended = $GP.info.find(".recommended1");
+    $GP.info_recommended2 = $GP.info.find(".recommended2");
     $GP.info_domain = $GP.info.find(".domain");
     $GP.info_close = $GP.info.find(".returntext");
     $GP.info_close2 = $GP.info.find(".close");
@@ -305,7 +306,7 @@ function configSigmaElements(config) {
 		for (b in sigInst.clusters) {
 //			a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> Kiran ' + (x++) + ' (' + sigInst.clusters[b].length + ' members)</a></div>');
 			a.push('<div style="line-height:12px"><a href="#' + b + '"><div style="width:40px;height:12px;border:1px solid #fff;background:' + b + ';display:inline-block"></div> ' + b + ' (' + sigInst.clusters[b].length + ' members)</a></div>');
-			console.log(b);
+//			console.log(b);
 		}
 
     //a.sort();
@@ -615,7 +616,7 @@ function nodeActive(a) {
 					tmp_str += "<script type='text/javascript'>$('#manual-example" + i.toString() + " a[rel=tipsy]').tipsy({trigger: 'manual', gravity: 's', html: true});</script><br/>";
 				}
 			}
-			console.log(tmp_str);
+	//		console.log(tmp_str);
 			$GP.info_retweets.html('<strong>' + attr + ':</strong> ' + tmp_str + '<br/>');
 		}
 		if(attr=="Recommended Links") {
@@ -635,7 +636,27 @@ function nodeActive(a) {
 				}
 			}
 
-			$GP.info_recommended.html('<strong>' + attr + ':</strong> ' + tmp_str + '</ul><br/>');
+//			$GP.info_recommended.html('<strong>' + attr + ':</strong> ' + tmp_str + '</ul><br/>');
+			$GP.info_recommended.html('<strong>Contrarian Articles:</strong> ' + tmp_str + '</ul><br/>');
+		}
+		if(attr=="Recommended Links") {
+//			console.log("ss",d);
+			d = d.replace("<br>","");
+			var d_split = d.split("<br/>");
+			d_shuffled = shuffle(d_split);
+			var arrayLength = d_shuffled.length;
+			if(arrayLength>3)
+				arrayLength=3;
+			var tmp_str = "<br>";
+			for (var i = 0; i < arrayLength; i++) { // take the top 3 random links
+				if(d_shuffled[i]!="") {
+					tmp_str += "<p id='manual-example1" + i.toString() + "'>" + d_shuffled[i] + "&nbsp;";
+					tmp_str += "  <a id='show_link1" + i.toString() + "' href='#' onclick='$(\"#manual-example1" + i.toString() + " a[rel=tipsy]\").tipsy(\"show\"); hideDivShow2(" + i.toString() + "); return false;'>Show</a><a id='hide_link1" + i.toString() + "' href='#' onclick='$(\"#manual-example1" + i.toString() + " a[rel=tipsy]\").tipsy(\"hide\"); hideDivHide2(" + i.toString() + "); return false;'></a>";
+					tmp_str += "<script type='text/javascript'>$('#manual-example1" + i.toString() + " a[rel=tipsy]').tipsy({trigger: 'manual', gravity: 's', html: true});</script><br/>";
+				}
+			}
+
+			$GP.info_recommended2.html('<strong>Random articles:</strong> ' + tmp_str + '</ul><br/>');
 		}
 		if(attr=="Domain") {
 			$GP.info_domain.html('<strong>' + attr + ':</strong> ' + d + '<br/>');

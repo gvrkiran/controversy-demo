@@ -48,6 +48,16 @@
 		document.getElementById("hide_link1" + i).innerHTML = "";
 		document.getElementById("show_link1" + i).innerHTML = "Show";
 	}
+
+	function highlightNodes(nodes) {
+		var nodes_split = nodes.split(";");
+		var arrayLength = nodes_split.length;
+		for (var i = 0; i < arrayLength; i++) {
+			node = nodes_split[i];
+			sigInst._core.plotter.drawHoverNode(sigInst._core.graph.nodesIndex[node]);
+		}
+	}
+
    </script>
 	  
 	  
@@ -159,7 +169,11 @@ Menu
     <div class="name"></div>
 	<!--div class="data"></div-->
 	<div class="retweets"></div>
-	<div class="recommended"></div>
+
+	<section id="urls1">
+	<div class="recommended1" id="one1"></div>
+	<div class="recommended2" id="two2"></div>
+	</section>
 	<div class="domain"></div>
     <div class="p">Connections:</div>
     <div class="link">

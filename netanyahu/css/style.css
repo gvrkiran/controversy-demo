@@ -594,3 +594,23 @@ div#two {
     background: Azure;
     text-align: center;
 }
+
+section#urls1 {
+    width: 100%;
+    height: 200px;
+    margin: auto;
+/*    padding: 10px;*/
+}
+div#one1 {
+    width: 49%;
+    height: 180px;
+    float: left;
+    background: AliceBlue;
+    text-align: center;
+}
+div#two2 {
+    margin-left: 50%;
+    height: 180px;
+    background: Azure;
+    text-align: center;
+}
